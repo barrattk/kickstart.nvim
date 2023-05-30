@@ -131,14 +131,15 @@ require('lazy').setup({
     },
   },
 
-  {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
-  },
+  require 'custom.colorscheme',
+  -- {
+  --   -- Theme inspired by Atom
+  --   'navarasu/onedark.nvim',
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme 'onedark'
+  --   end,
+  -- },
 
   {
     -- Set lualine as statusline
@@ -211,8 +212,7 @@ require('lazy').setup({
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
--- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = false --remove highlight after search
 
 -- Make line numbers default
 vim.wo.number = true
@@ -235,6 +235,9 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
+vim.opt.splitright = true         -- vertical split to the right
+vim.opt.splitbelow = true         -- horizontal split to the bottom
+
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
@@ -248,6 +251,28 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+
+vim.o.swapfile = false -- dont use swapfile
+-----------------------------------------------------------
+-- Tabs, indent
+-----------------------------------------------------------
+vim.o.expandtab = true      -- use spaces instead of tabs
+vim.o.shiftwidth = 4        -- shift 4 spaces when tab
+vim.o.tabstop = 4           -- 1 tab == 4 spaces
+vim.o.smartindent = true    -- autoindent new lines
+
+
+-----------------------------------------------------------
+-- Memory, CPU
+-----------------------------------------------------------
+vim.o.hidden = true         -- enable background buffers
+vim.opt.history = 100         -- remember n lines in history
+vim.opt.lazyredraw = true     -- faster scrolling
+vim.opt.synmaxcol = 240       -- max column for syntax highlight
+
+
+
+
 
 -- [[ Basic Keymaps ]]
 
@@ -269,6 +294,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { "*" },
+  command = [[%s/\s\+$//e ]],
+})
+
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -304,15 +336,9 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
-
-vim.keymap.set('n', '<leader>e', function() require('ranger-nvim').open() end, { desc = 'Ranger' })
-vim.g.ranger_map_keys=0
---["<leader>e"] = {
---    function()
---        require("ranger-nvim").open()
---    end,
---    "Ranger",
---},
+require 'custom.keymappings'
+-- vim.keymap.set('n', '<leader>e', function() require('ranger-nvim').open() end, { desc = 'Ranger' })
+-- vim.g.ranger_map_keys=0
 
 
 
