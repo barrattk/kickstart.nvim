@@ -131,15 +131,10 @@ require('lazy').setup({
     },
   },
 
+
   require 'custom.colorscheme',
-  -- {
-  --   -- Theme inspired by Atom
-  --   'navarasu/onedark.nvim',
-  --   priority = 1000,
-  --   config = function()
-  --     vim.cmd.colorscheme 'onedark'
-  --   end,
-  -- },
+  -- require 'custom.c_cpp_coc_clangd',
+
 
   {
     -- Set lualine as statusline
@@ -212,7 +207,7 @@ require('lazy').setup({
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
-vim.o.hlsearch = false --remove highlight after search
+vim.o.hlsearch = true -- false == remove highlight after search
 
 -- Make line numbers default
 vim.wo.number = true
@@ -272,18 +267,6 @@ vim.opt.synmaxcol = 240       -- max column for syntax highlight
 
 
 
-
-
--- [[ Basic Keymaps ]]
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -337,16 +320,13 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 require 'custom.keymappings'
--- vim.keymap.set('n', '<leader>e', function() require('ranger-nvim').open() end, { desc = 'Ranger' })
--- vim.g.ranger_map_keys=0
-
 
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'java' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -461,12 +441,15 @@ end
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
+-- They will be installed via Mason
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
+  clangd = {  --- I've got no idea if these are being picked up
+      filetypes ={ "keith" },
+      single_file_support = false,
+  },
+  --  gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
