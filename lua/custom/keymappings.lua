@@ -52,18 +52,22 @@ vim.keymap.set("v", "<A-k>", ":m .-2<CR>==", opts)
 -- Paste in visual mode
 vim.keymap.set("v", "p", '"_dP', opts)
 
+
+-- Select Mode Is a bit weird and I don't plan on using it
+-- See https://vi.stackexchange.com/questions/4891/what-is-the-select-mode-and-when-is-it-relevant-to-use-it
 -- Move text up and down
-vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", opts)
-vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
-vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
-vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
+-- vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv", opts)
+-- vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
+-- vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
+-- vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
+
 
 
 
 -- Use escape to leave insert mode in terminal
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', opts)
 
-
+vim.keymap.set('n', "<leader>h", ":ClangdSwitchSourceHeader<CR>", {desc = 'ClangdSwitchSourceHeader'})
 
 -- local M = {}
 
