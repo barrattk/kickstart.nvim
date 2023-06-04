@@ -8,6 +8,14 @@ local opts = {noremap = true, silent = true}
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true }) -- leader is the Space
 
+
+
+vim.keymap.set('n', '<c-u>', '<c-u>zz') -- Put cursor in middle after movement
+vim.keymap.set('n', '<c-d>', '<c-d>zz') -- Put cursor in middle after movement
+
+vim.keymap.set('n', '<c-f>', '<c-f>zz') -- Put cursor in middle after movement
+vim.keymap.set('n', '<c-b>', '<c-b>zz') -- Put cursor in middle after movement
+
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -22,6 +30,10 @@ vim.keymap.set('n', "<C-j>", "<C-w>j", {desc = "Window Navigation"})
 vim.keymap.set('n', "<C-k>", "<C-w>k", {desc = "Window Navigation"})
 vim.keymap.set('n', "<C-l>", "<C-w>l", {desc = "Window Navigation"})
 
+-- Cycle splits
+-- vim.keymap.set('n', "<TAB>", "<C-W>w", {desc = "Cycle Splits"})
+-- vim.keymap.set('n', "<S-TAB>", "<C-W>W", {desc = "Cycle Splits"})
+
 -- Resize with arrows
 vim.keymap.set('n', "<C-Up>", "<cmd>resize -2<CR>", {desc = 'Resize'})
 vim.keymap.set('n', "<C-Down>", "<cmd>resize +2<CR>", {desc = 'Resize'})
@@ -31,6 +43,9 @@ vim.keymap.set('n', "<C-Right>", "<cmd>vertical resize +2<CR>",{desc ='Resize'})
 -- Navigate buffers
 vim.keymap.set('n', "<S-l>", ":bnext<CR>", {desc = 'Buffer (Next)'})
 vim.keymap.set('n', "<S-h>", ":bprevious<CR>", {desc = 'Buffer (Prev)'})
+vim.keymap.set('n', "<TAB>", ":bn<CR>", {desc = "Cycle buffers"})
+vim.keymap.set('n', "<S-TAB>", ":bp<CR>", {desc = "Cycle buffers"})
+
 
 -- Stay in visual_mode after shift operation
 vim.keymap.set('v', ">", ">gv", opts)
@@ -51,7 +66,11 @@ vim.keymap.set("v", "<A-k>", ":m .-2<CR>==", opts)
 
 -- Paste in visual mode
 vim.keymap.set("v", "p", '"_dP', opts)
+vim.keymap.set("v", "y", 'ygv<esc>', opts)
 
+
+
+vim.keymap.set("n", "U", '<C-r>', opts) -- redo with the same key as undo
 
 -- Select Mode Is a bit weird and I don't plan on using it
 -- See https://vi.stackexchange.com/questions/4891/what-is-the-select-mode-and-when-is-it-relevant-to-use-it
@@ -62,12 +81,14 @@ vim.keymap.set("v", "p", '"_dP', opts)
 -- vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 
-
-
 -- Use escape to leave insert mode in terminal
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', opts)
 
 vim.keymap.set('n', "<leader>h", ":ClangdSwitchSourceHeader<CR>", {desc = 'ClangdSwitchSourceHeader'})
+
+
+vim.keymap.set('n', "<leader>sl", "<cmd>lua require('telescope.builtin').resume(require('telescope.themes').get_ivy({}))<CR>", {desc = '[S]each [l]ast Grep'})
+
 
 -- local M = {}
 
