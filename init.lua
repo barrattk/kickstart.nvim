@@ -133,7 +133,6 @@ require('lazy').setup({
 
 
   require 'custom.colorscheme',
-  -- require 'custom.c_cpp_coc_clangd',
 
 
   {
@@ -189,6 +188,13 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+
+  {
+     'ahmedkhalf/project.nvim',
+      dependencies = {
+      'nvim-telescope/telescope.nvim'
+    },
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -279,6 +285,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 
+
+-- TODO: this does not work !!!
+vim.api.nvim_create_autocmd('QuitPre', {
+  pattern = { "*" },
+  command = ":mksession! ~/.local/state/nvim/.vim_session",
+})
+
+
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { "*" },
   command = [[%s/\s\+$//e ]],
@@ -318,6 +332,13 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+
+
+require("project_nvim").setup{
+}
+
+require('telescope').load_extension('projects')  -- Typing :telescope projects
+
 
 require 'custom.keymappings'
 
