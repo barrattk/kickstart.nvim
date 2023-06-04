@@ -46,6 +46,7 @@ vim.keymap.set('n', "<S-h>", ":bprevious<CR>", {desc = 'Buffer (Prev)'})
 vim.keymap.set('n', "<TAB>", ":bn<CR>", {desc = "Cycle buffers"})
 vim.keymap.set('n', "<S-TAB>", ":bp<CR>", {desc = "Cycle buffers"})
 
+vim.keymap.set('n', "<leader>x", ":BufDel<CR>", {desc = 'Buffer delete'}) -- requires ojroques/nvim-bufdel
 
 -- Stay in visual_mode after shift operation
 vim.keymap.set('v', ">", ">gv", opts)
@@ -67,7 +68,6 @@ vim.keymap.set("v", "<A-k>", ":m .-2<CR>==", opts)
 -- Paste in visual mode
 vim.keymap.set("v", "p", '"_dP', opts)
 vim.keymap.set("v", "y", 'ygv<esc>', opts)
-
 
 
 vim.keymap.set("n", "U", '<C-r>', opts) -- redo with the same key as undo
