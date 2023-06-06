@@ -141,6 +141,7 @@ require('lazy').setup({
 
 
 
+
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -186,6 +187,16 @@ require('lazy').setup({
       return vim.fn.executable 'make' == 1
     end,
   },
+
+
+
+    {
+    "ThePrimeagen/refactoring.nvim",
+    dependancies = {
+        {"nvim-lua/plenary.nvim",
+        "nvim-treesitter/nvim-treesitter"}
+      }
+    },
 
   {
     -- Highlight, edit, and navigate code
@@ -349,6 +360,9 @@ require('telescope').load_extension('projects')  -- Typing :telescope projects
 
 
 require 'keymappings'
+
+require 'commands'
+
 
   vim.keymap.set('n', '<Leader>df', function()
     local widgets = require('dap.ui.widgets')
@@ -521,6 +535,8 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
+
+require('refactoring').setup({})
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`

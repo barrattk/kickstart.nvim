@@ -1,11 +1,13 @@
 
 
-local opts = {noremap = true, silent = true}
+
 
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
+local opts = {noremap = true, silent = true}
+
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true }) -- leader is the Space
 
 
@@ -91,6 +93,26 @@ vim.keymap.set('n', "<leader>sl", "<cmd>lua require('telescope.builtin').resume(
 
 vim.keymap.set('n', '<F2>', ':mksession! ~/.local/state/nvim/.vim_session<CR>', {desc = "Session Write"})
 vim.keymap.set('n', '<F3>', ':source ~/.local/state/nvim/.vim_session<CR>', {desc = "Session Load"})
+
+-- prompt for a refactor to apply when the remap is triggered
+-- vim.api.nvim_set_keymap(
+    -- "v",
+    -- "<leader>rr",
+    -- ":lua require('refactoring').select_refactor()<CR>",
+    -- { noremap = true, silent = true, expr = false }
+-- )
+
+
+-- load refactoring Telescope extension
+require("telescope").load_extension("refactoring")
+
+-- remap to open the Telescope refactoring menu in visual mode
+vim.api.nvim_set_keymap(
+	"v",
+	"<leader>rr",
+	"<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+	{ noremap = true }
+)
 
 
 -- local M = {}
