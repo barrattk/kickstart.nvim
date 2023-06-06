@@ -72,7 +72,7 @@ vim.keymap.set("v", "p", '"_dP', opts)
 vim.keymap.set("v", "y", 'ygv<esc>', opts)
 
 
-vim.keymap.set("n", "U", '<C-r>', opts) -- redo with the same key as undo
+-- vim.keymap.set("n", "U", '<C-r>', opts) -- redo with the same key as undo
 
 -- Select Mode is a bit weird and I don't plan on using it
 -- See https://vi.stackexchange.com/questions/4891/what-is-the-select-mode-and-when-is-it-relevant-to-use-it
