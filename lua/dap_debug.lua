@@ -41,6 +41,7 @@ return {
         -- Update this to ensure that you have the debuggers for the langs you want
          -- 'delve',  --  Go
         'codelldb', -- C/Cpp
+        'cpptools', -- C/Cpp
         'debugpy',  -- Python
       },
     }
@@ -161,23 +162,84 @@ return {
       },
     }
 
+    -- Please look at ...
+    -- https://github.com/mfussenegger/nvim-dap/wiki/C-C---Rust-(gdb-via--vscode-cpptools)
+    --
+    -- Run :DapContinue to get a menu for these cpp configurations or run the python dap
+    --
+
+    -- local dap = require('dap')
+    dap.adapters.cppdbg = {
+      id = 'cppdbg',
+      type = 'executable',
+      command = '/home/kb/.local/share/nvim/mason/packages/cpptools/extension/debugAdapters/bin/OpenDebugAD7',
+    }
+
+    -- global workspaceRoot = '$workspaceFolder'
+    -- local dap = require('dap')
     dap.configurations.cpp = {
       {
         name = "Launch file",
-        type = "codelldb",
+        type = "cppdbg",
         request = "launch",
         program = function()
-          local path
-          vim.ui.input({ prompt = "Path to executable: ", default = vim.loop.cwd() .. "/_build/" }, function(input)
-            path = input
-          end)
-          vim.cmd [[redraw]]
-          return path
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
-        cwd = "${workspaceFolder}",
-        stopOnEntry = false,
+        cwd = '${workspaceFolder}',
+        stopAtEntry = true,
+      },
+
+       {
+          name = "DWM1001DEV_IONTAG_E4B",
+          --cwd = "${workspaceRoot}",
+          cwd = "${workspaceFolder}",
+          --executable = "_build/DWM1001DEV_IONTAG_E4B/zmicro_DWM1001DEV_IONTAG_E4B.elf",
+          program = "/home/kb/dev/keith/BLE_diversity_tag/ble_beacons/zmicro/_build/DWM1001DEV_IONTAG_E4B/zmicro_DWM1001DEV_IONTAG_E4B.elf",
+          request = "launch",
+          --type = "cortex-debug",
+          type = "cppdbg",
+          servertype = "jlink",
+          device = "nrf52",
+          interface = "swd",
+          -- "serialNumber" = "000760093779",
+          serialNumber =  "000760163246",
+          -- "serialNumber": "${input:JlinkSerialNumber}",
+          armToolchainPath = "/usr/bin/",
+          -- svdFile = "${workspaceRoot}/../../support/nRF5_SDK/modules/nrfx/mdk/nrf52.svd",
+          svdFile = "${workspaceFolder}/../../support/nRF5_SDK/modules/nrfx/mdk/nrf52.svd",
+          runToMain = true
+      },
+      {
+        name = 'Attach to gdbserver :2331',
+        type = 'cppdbg',
+        request = 'launch',
+        MIMode = 'gdb',
+        miDebuggerServerAddress = '127.0.0.1:2331',
+        miDebuggerPath = '/usr/bin/gdb',
+        cwd = '${workspaceFolder}',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
       },
     }
+
+    -- dap.configurations.cpp = {
+    --   {
+    --     name = "Launch file",
+    --     type = "codelldb",
+    --     request = "launch",
+    --     program = function()
+    --       local path
+    --       vim.ui.input({ prompt = "Path to executable: ", default = vim.loop.cwd() .. "/_build/" }, function(input)
+    --         path = input
+    --       end)
+    --       vim.cmd [[redraw]]
+    --       return path
+    --     end,
+    --     cwd = "${workspaceFolder}",
+    --     stopOnEntry = true,
+    --   },
+    -- }
 
     dap.configurations.c = dap.configurations.cpp
     --
