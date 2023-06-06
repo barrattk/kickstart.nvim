@@ -228,68 +228,6 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
 }, {})
 
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
-
-vim.o.hlsearch = true -- false == remove highlight after search
-
--- Make line numbers default
-vim.wo.number = true
-
--- Enable mouse mode
-vim.o.mouse = 'a'
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
-
--- Enable break indent
-vim.o.breakindent = true
-
--- Save undo history
-vim.o.undofile = true
-
--- Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
-vim.opt.splitright = true         -- vertical split to the right
-vim.opt.splitbelow = true         -- horizontal split to the bottom
-
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
-
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeout = true
-vim.o.timeoutlen = 300
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
-
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
-
-vim.o.swapfile = false -- dont use swapfile
------------------------------------------------------------
--- Tabs, indent
------------------------------------------------------------
-vim.o.expandtab = true      -- use spaces instead of tabs
-vim.o.shiftwidth = 4        -- shift 4 spaces when tab
-vim.o.tabstop = 4           -- 1 tab == 4 spaces
-vim.o.smartindent = true    -- autoindent new lines
-
-
------------------------------------------------------------
--- Memory, CPU
------------------------------------------------------------
-vim.o.hidden = true         -- enable background buffers
-vim.opt.history = 100         -- remember n lines in history
-vim.opt.lazyredraw = true     -- faster scrolling
-vim.opt.synmaxcol = 240       -- max column for syntax highlight
-
 
 
 -- [[ Highlight on yank ]]
@@ -304,11 +242,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 
-
--- TODO: this does not work !!!
+-- Save session on when exiting - will get odd if using more than one window!!
+-- Maybe not needed?
 vim.api.nvim_create_autocmd('QuitPre', {
   pattern = { "*" },
-  command = ":mksession! ~/.local/state/nvim/.vim_session",
+  command = [[:mksession! ~/.local/state/nvim/.vim_session]],
 })
 
 
@@ -381,92 +319,26 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
-
-require("project_nvim").setup{
-}
-
+require "vim-options"
+require("project_nvim").setup{}
 require('telescope').load_extension('projects')  -- Type :Telescope projects
-
-
 require 'keymappings'
-
 require 'commands'
 
+require('refactoring').setup({})
 
-  vim.keymap.set('n', '<Leader>df', function()
-    local widgets = require('dap.ui.widgets')
-    widgets.centered_float(widgets.frames)
-  end)
--- vim.keymap.set('n', '<leader>ds', require('nvim-dap-ui').eval, { desc = '[d]ebug [s]start' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require 'treesitter-cfg'
 
 
--- require('nvim-treesitter.configs').setup {
---   -- Add languages to be installed here that you want installed for treesitter
---   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'java' },
---
---   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
---   auto_install = false,
---
---   highlight = { enable = true },
---   indent = { enable = true, disable = { 'python' } },
---   incremental_selection = {
---     enable = true,
---     keymaps = {
---       init_selection = '<ENTER>',
---       node_incremental = '<ENTER>',
---       scope_incremental = '<c-s>', -- Not working?
---       node_decremental = '<BS>',
---     },
---   },
---   textobjects = {
---     select = {
---       enable = true,
---       lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
---       keymaps = {
---         -- You can use the capture groups defined in textobjects.scm
---         ['aa'] = '@parameter.outer',
---         ['ia'] = '@parameter.inner',
---         ['af'] = '@function.outer',
---         ['if'] = '@function.inner',
---         ['ac'] = '@class.outer',
---         ['ic'] = '@class.inner',
---       },
---     },
---     move = {
---       enable = true,
---       set_jumps = true, -- whether to set jumps in the jumplist
---       goto_next_start = {
---         [']m'] = '@function.outer',
---         [']]'] = '@class.outer',
---       },
---       goto_next_end = {
---         [']M'] = '@function.outer',
---         [']['] = '@class.outer',
---       },
---       goto_previous_start = {
---         ['[m'] = '@function.outer',
---         ['[['] = '@class.outer',
---       },
---       goto_previous_end = {
---         ['[M'] = '@function.outer',
---         ['[]'] = '@class.outer',
---       },
---     },
---     swap = {
---       enable = true,
---       swap_next = {
---         ['<leader>a'] = '@parameter.inner',
---       },
---       swap_previous = {
---         ['<leader>A'] = '@parameter.inner',
---       },
---     },
---   },
--- }
+vim.keymap.set('n', '<Leader>df', function()
+  local widgets = require('dap.ui.widgets')
+  widgets.centered_float(widgets.frames)
+end)
+-- vim.keymap.set('n', '<leader>ds', require('nvim-dap-ui').eval, { desc = '[d]ebug [s]start' })
+
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
@@ -568,7 +440,6 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
-require('refactoring').setup({})
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
