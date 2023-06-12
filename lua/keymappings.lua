@@ -27,10 +27,10 @@ vim.keymap.set('n', '<leader>e', function() require('ranger-nvim').open() end, {
 vim.g.ranger_map_keys=0
 
 -- Better window navigation
-vim.keymap.set('n', "<C-h>", "<C-w>h", {desc = "Window Navigation"})
-vim.keymap.set('n', "<C-j>", "<C-w>j", {desc = "Window Navigation"})
-vim.keymap.set('n', "<C-k>", "<C-w>k", {desc = "Window Navigation"})
-vim.keymap.set('n', "<C-l>", "<C-w>l", {desc = "Window Navigation"})
+vim.keymap.set({ 'n', 't' }, "<C-h>", "<C-w>h", {desc = "Window Navigation"})
+vim.keymap.set({ 'n', 't' }, "<C-j>", "<C-w>j", {desc = "Window Navigation"})
+vim.keymap.set({ 'n', 't' }, "<C-k>", "<C-w>k", {desc = "Window Navigation"})
+vim.keymap.set({ 'n', 't' }, "<C-l>", "<C-w>l", {desc = "Window Navigation"})
 
 -- Cycle splits
 -- vim.keymap.set('n', "<TAB>", "<C-W>w", {desc = "Cycle Splits"})
@@ -72,6 +72,7 @@ vim.keymap.set("v", "p", '"_dP', opts)
 vim.keymap.set("v", "y", 'ygv<esc>', opts)
 
 
+vim.keymap.set("t", "<esc>", "<C-\\><C-n>", opts)
 -- vim.keymap.set("n", "U", '<C-r>', opts) -- redo with the same key as undo
 
 -- Select Mode is a bit weird and I don't plan on using it
@@ -85,6 +86,7 @@ vim.keymap.set("v", "y", 'ygv<esc>', opts)
 
 -- Use escape to leave insert mode in terminal
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', opts)
+vim.keymap.set({'n', 't'}, '<M-1>', "<cmd>terminal<CR>", {desc = "Terminal"})
 
 vim.keymap.set('n', "<leader>h", ":ClangdSwitchSourceHeader<CR>", {desc = 'ClangdSwitchSourceHeader'})
 
@@ -256,6 +258,14 @@ vim.api.nvim_set_keymap(
 --       "toggle floating term",
 --     },
 --   },
+
+--
+-- vim.keymap.set({'n', 't'}, '<M-1>', function() require("nvterm.terminal").toggle("horizontal") end, {desc = "Terminal(H)"})
+-- vim.keymap.set({'n', 't'}, '<M-2>', function() require("nvterm.terminal").toggle("Vertical") end, {desc = "Terminal(V)"})
+-- vim.keymap.set({'n', 't'}, '<M-3>', function() require("nvterm.terminal").toggle("Float") end, {desc = "Terminal(F)"})
+
+
+
 --
 --   n = {
 --     -- toggle in normal mode
