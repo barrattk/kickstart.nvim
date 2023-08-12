@@ -152,7 +152,7 @@ require('lazy').setup({
   },
 
   {  "ThePrimeagen/refactoring.nvim",
-  dependancies = {
+  dependencies = {
       {"nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter"}
     }
@@ -167,6 +167,7 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+  {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
 
   {
      'ahmedkhalf/project.nvim',
@@ -213,20 +214,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   command = [[%s/\s\+$//e ]],
 })
 
-
--- [[ Configure Telescope ]]
-
--- local vimgrep_args_live= {
---       'rg',
---       '--color=never',
---       '--no-heading',
---       '--with-filename',
---       '--line-number',
---       '--column',
---       '--smart-case',
---       '--hidden',
---       '-u' -- thats the new thing
---   }
 
 --
 -- See `:help telescope` and `:help telescope.setup()`
