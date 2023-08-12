@@ -9,7 +9,7 @@ local options = {
   completeopt = { "menuone", "noselect" }, -- mostly just for cmp
   conceallevel = 0,                        -- so that `` is visible in markdown files
   fileencoding = "utf-8",                  -- the encoding written to a file
-  hlsearch = true,                         -- highlight all matches on previous search pattern
+  hlsearch = true,                         -- highlight all matches on previous search pattern (false == remove highlight after search)
   ignorecase = true,                       -- ignore case in search patterns
   mouse = "a",                             -- allow the mouse to be used in neovim
   pumheight = 10,                          -- pop up menu height
@@ -20,7 +20,8 @@ local options = {
   splitbelow = true,                       -- force all horizontal splits to go below current window
   splitright = true,                       -- force all vertical splits to go to the right of current window
   swapfile = false,                        -- creates a swapfile
-  -- termguicolors = true,                    -- set term gui colors (most terminals support this)
+  termguicolors = true,                    -- set term gui colors (most terminals support this)
+  timeout = true,
   timeoutlen = 300,                        -- time to wait for a mapped sequence to complete (in milliseconds)
   undofile = true,                         -- enable persistent undo
   updatetime = 300,                        -- faster completion (4000ms default)
@@ -53,51 +54,7 @@ vim.opt.formatoptions:remove({ "c", "r", "o" })        -- don't insert the curre
 vim.opt.runtimepath:remove("/usr/share/vim/vimfiles")  -- separate vim plugins from neovim in case vim still in use
 
 
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
 --
--- vim.o.hlsearch = true -- false == remove highlight after search
---
--- -- Make line numbers default
--- vim.wo.number = true
---
--- -- Enable mouse mode
--- vim.o.mouse = 'a'
---
--- -- Sync clipboard between OS and Neovim.
--- --  Remove this option if you want your OS clipboard to remain independent.
--- --  See `:help 'clipboard'`
--- vim.o.clipboard = 'unnamedplus'
---
--- -- Enable break indent
--- vim.o.breakindent = true
---
--- -- Save undo history
--- vim.o.undofile = true
---
--- -- Case insensitive searching UNLESS /C or capital in search
--- vim.o.ignorecase = true
--- vim.o.smartcase = true
---
--- vim.opt.splitright = true         -- vertical split to the right
--- vim.opt.splitbelow = true         -- horizontal split to the bottom
---
--- -- Keep signcolumn on by default
--- vim.wo.signcolumn = 'yes'
---
--- -- Decrease update time
--- vim.o.updatetime = 250
--- vim.o.timeout = true
--- vim.o.timeoutlen = 300
---
--- -- Set completeopt to have a better completion experience
--- vim.o.completeopt = 'menuone,noselect'
---
--- -- NOTE: You should make sure your terminal supports this
--- vim.o.termguicolors = true
---
--- vim.o.swapfile = false -- dont use swapfile
 -- -----------------------------------------------------------
 -- -- Tabs, indent
 -- -----------------------------------------------------------
