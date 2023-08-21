@@ -53,6 +53,10 @@ vim.opt.iskeyword:append "-"                           -- hyphenated words recog
 vim.opt.formatoptions:remove({ "c", "r", "o" })        -- don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
 vim.opt.runtimepath:remove("/usr/share/vim/vimfiles")  -- separate vim plugins from neovim in case vim still in use
 
+--  We need this python3_host_prog so that we don't get a nvim 'provider' error when we :checkhealth
+--  Might be an Ubuntu thing or just my computer
+--  Note: I also had to run 'python -m pip install --user pynvim' in a terminal
+vim.g.python3_host_prog = '/usr/bin/python3'
 
 --
 -- -----------------------------------------------------------

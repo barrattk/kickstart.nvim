@@ -60,8 +60,8 @@ vim.keymap.set('i', "kj", "<ESC>", opts)
 vim.keymap.set('i', "jk", "<ESC>", opts)
 
 -- Move text up and down
-vim.keymap.set('n', "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 vim.keymap.set('n', "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+vim.keymap.set('n', "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 
 -- Move text up and down
 vim.keymap.set("v", "<A-j>", ":m .+1<CR>==", opts)
@@ -72,7 +72,6 @@ vim.keymap.set("v", "p", '"_dP', opts)
 vim.keymap.set("v", "y", 'ygv<esc>', opts)
 
 
-vim.keymap.set("t", "<esc>", "<C-\\><C-n>", opts)
 -- vim.keymap.set("n", "U", '<C-r>', opts) -- redo with the same key as undo
 
 -- Select Mode is a bit weird and I don't plan on using it
@@ -85,14 +84,18 @@ vim.keymap.set("t", "<esc>", "<C-\\><C-n>", opts)
 
 
 -- Use escape to leave insert mode in terminal
+-- Escape terminal mode
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', opts)
 vim.keymap.set({'n', 't'}, '<M-1>', "<cmd>terminal<CR>", {desc = "Terminal"})
 
-vim.keymap.set('n', "<leader>h", ":ClangdSwitchSourceHeader<CR>", {desc = 'ClangdSwitchSourceHeader'})
 
+
+vim.keymap.set('n', "<leader>h", ":ClangdSwitchSourceHeader<CR>", {desc = 'ClangdSwitchSourceHeader'})
 
 vim.keymap.set('n', "<leader>sl", "<cmd>lua require('telescope.builtin').resume(require('telescope.themes').get_ivy({}))<CR>", {desc = '[S]each [l]ast Grep'})
 
+
+-- vim_session is a builtin feature (not a project)
 vim.keymap.set('n', '<F2>', ':mksession! ~/.local/state/nvim/.vim_session<CR>', {desc = "Session Write"})
 vim.keymap.set('n', '<F3>', ':source ~/.local/state/nvim/.vim_session<CR>', {desc = "Session Load"})
 
@@ -103,7 +106,6 @@ vim.keymap.set('n', '<F3>', ':source ~/.local/state/nvim/.vim_session<CR>', {des
     -- ":lua require('refactoring').select_refactor()<CR>",
     -- { noremap = true, silent = true, expr = false }
 -- )
-
 
 -- load refactoring Telescope extension
 require("telescope").load_extension("refactoring")
