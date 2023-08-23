@@ -60,12 +60,12 @@ vim.keymap.set('i', "kj", "<ESC>", opts)
 vim.keymap.set('i', "jk", "<ESC>", opts)
 
 -- Move text up and down
-vim.keymap.set('n', "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
-vim.keymap.set('n', "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
+vim.keymap.set({'n', 'v'}, "<A-k>", "<Esc>:m '<-2<CR>gv=gv", opts)
+vim.keymap.set({'n', 'v'}, "<A-j>", "<Esc>:m '>+1<CR>gv=gv", opts)
 
--- Move text up and down
-vim.keymap.set("v", "<A-j>", ":m .+1<CR>==", opts)
-vim.keymap.set("v", "<A-k>", ":m .-2<CR>==", opts)
+-- -- Move text up and down
+-- vim.keymap.set("v", "<A-j>", ":m .+1<CR>==", opts)
+-- vim.keymap.set("v", "<A-k>", ":m .-2<CR>==", opts)
 
 -- Paste in visual mode
 vim.keymap.set("v", "p", '"_dP', opts)
