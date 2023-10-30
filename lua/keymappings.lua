@@ -18,6 +18,9 @@ vim.keymap.set('n', '<c-d>', '<c-d>zz') -- Put cursor in middle after movement
 vim.keymap.set('n', '<c-f>', '<c-f>zz') -- Put cursor in middle after movement
 vim.keymap.set('n', '<c-b>', '<c-b>zz') -- Put cursor in middle after movement
 
+vim.keymap.set('n', "n", 'nzzzv') -- Put cursor in middle after movement
+vim.keymap.set('n', "N", 'Nzzzv') -- Put cursor in middle after movement
+
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -60,16 +63,24 @@ vim.keymap.set('i', "kj", "<ESC>", opts)
 vim.keymap.set('i', "jk", "<ESC>", opts)
 
 -- Move text up and down
-vim.keymap.set({'n', 'v'}, "<A-k>", "<Esc>:m '<-2<CR>gv=gv", opts)
-vim.keymap.set({'n', 'v'}, "<A-j>", "<Esc>:m '>+1<CR>gv=gv", opts)
+-- vim.keymap.set('v', "<A-k>", "<Esc>:m '<-2<CR>gv=gv", opts)
+-- vim.keymap.set('v', "<A-j>", "<Esc>:m '>+1<CR>gv=gv", opts)
 
--- -- Move text up and down
--- vim.keymap.set("v", "<A-j>", ":m .+1<CR>==", opts)
--- vim.keymap.set("v", "<A-k>", ":m .-2<CR>==", opts)
+vim.keymap.set("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+vim.keymap.set("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+vim.keymap.set("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+vim.keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+vim.keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- Paste in visual mode
 vim.keymap.set("v", "p", '"_dP', opts)
 vim.keymap.set("v", "y", 'ygv<esc>', opts)
+
+
+vim.keymap.set("n", "Q", "<nop>")
+
+
 
 
 -- vim.keymap.set("n", "U", '<C-r>', opts) -- redo with the same key as undo
