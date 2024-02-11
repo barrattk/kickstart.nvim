@@ -73,8 +73,12 @@ vim.keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
 vim.keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
+-- Paste in Insert mode
+-- This keeps the current copy buffer and does not over-write it
+-- vim.keymap.sePastet
+
 -- Paste in visual mode
-vim.keymap.set("v", "p", '"_dP', opts)
+vim.keymap.set("v", "<leader>p", '"_dP', opts)
 vim.keymap.set("v", "y", 'ygv<esc>', opts)
 
 
@@ -119,15 +123,15 @@ vim.keymap.set('n', '<F3>', ':source ~/.local/state/nvim/.vim_session<CR>', {des
 -- )
 
 -- load refactoring Telescope extension
-require("telescope").load_extension("refactoring")
+-- require("telescope").load_extension("refactoring")
 
 -- remap to open the Telescope refactoring menu in visual mode
-vim.api.nvim_set_keymap(
-	"v",
-	"<leader>rr",
-	"<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
-	{ noremap = true }
-)
+-- vim.api.nvim_set_keymap(
+-- 	"v",
+-- 	"<leader>rr",
+-- 	"<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+-- 	{ noremap = true }
+-- )
 
 
 -- local M = {}

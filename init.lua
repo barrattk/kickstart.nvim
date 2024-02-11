@@ -39,12 +39,22 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
-
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+  -- ranger
   'kelly-lin/ranger.nvim',
-
+  -- Mason
+  'williamboman/mason.nvim',
+  -- Buffer delete
+  'ojroques/nvim-bufdel',
+  -- Colorscheme
   require 'colorscheme',
+
+  -- Autocomplete
+  require 'nvim-cmp',
+  -- Comment out lines
+  require 'comment',
+
   -- require 'term',
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -64,22 +74,6 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
-
---  {
-    -- Autocompletion
---    'hrsh7th/nvim-cmp',
---    dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
---      'L3MON4D3/LuaSnip',
---      'saadparwaiz1/cmp_luasnip',
-
-      -- Adds LSP completion capabilities
---      'hrsh7th/cmp-nvim-lsp',
-
-      -- Adds a number of user-friendly snippets
---      'rafamadriz/friendly-snippets',
---    },
---  },
   {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',
@@ -95,17 +89,21 @@ require('lazy').setup({
       {'L3MON4D3/LuaSnip'},     -- Required
     }
   },
+  -- require 'gitsigns',
+
+  'lewis6991/gitsigns.nvim',
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
       -- See `:help gitsigns.txt`
       signs = {
-        add = { text = '+' },
-        change = { text = '~' },
+        add = { text = '|' },
+        change = { text = '|' },
         delete = { text = '_' },
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
+        untracked = { text = '┆' },
       },
       on_attach = function(bufnr)
         -- vim.keymap.set('n', '[c', require('gitsigns').prev_hunk, { buffer = bufnr, desc = 'Go to Previous Hunk' })
@@ -133,20 +131,18 @@ require('lazy').setup({
   },
 
   {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+  -- Add indentation guides even on blank lines
+  "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}
   },
-
-  -- "gc" to comment visual regions/lines
-  {'numToStr/Comment.nvim', opts = {} },
-
-  {'ojroques/nvim-bufdel'},
+  -- {
+  --   'lukas-reineke/indent-blankline.nvim',
+  --   -- Enable `lukas-reineke/indent-blankline.nvim`
+  --   -- See `:help indent_blankline.txt`
+  --   opts = {
+  --     char = '┊',
+  --     show_trailing_blankline_indent = false,
+  --   },
+  -- },
 
   -- Fuzzy Finder (files, lsp, etc)
   {'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -166,14 +162,6 @@ require('lazy').setup({
 
   { 'nvim-telescope/telescope-fzf-native.nvim',
     build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
-
-  {  "ThePrimeagen/refactoring.nvim",
-  dependencies = {
-      {"nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter"}
-    }
-  },
-
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -251,6 +239,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   command = [[%s/\s\+$//e ]],
 })
 
+-- require('gitsigns').setup()
 
 
 --
@@ -308,7 +297,7 @@ require "vim-options"
 require 'keymappings'
 require 'commands'
 
-require('refactoring').setup({})
+-- require('refactoring').setup({})
 
 
 -- [[ Configure Treesitter ]]
@@ -329,6 +318,8 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+vim.keymap.set('n', '<leader>dd', vim.diagnostic.disable, { desc = 'Disable Diagnostics' })
+vim.keymap.set('n', '<leader>de', vim.diagnostic.enable, { desc = 'Ensable Diagnostics' })
 
 
 
@@ -480,56 +471,6 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
--- [[ Configure nvim-cmp ]]
--- See `:help cmp`
---
--- Lua snip stuff removed
-local cmp = require 'cmp'
--- local luasnip = require 'luasnip'
--- require('luasnip.loaders.from_vscode').lazy_load()
--- luasnip.config.setup {}
-
-cmp.setup {
-  -- snippet = {
-  --   expand = function(args)
-  --     luasnip.lsp_expand(args.body)
-  --   end,
-  -- },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      -- elseif luasnip.expand_or_locally_jumpable() then
-      --   luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      -- elseif luasnip.locally_jumpable(-1) then
-      --   luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  },
-  -- Do these sources limit the lsps that cmp is applied to?
---   sources = {
---     { name = 'nvim_lsp' },
---     { name = 'luasnip' },
---   },
-}
 
 -- -- The line beneath this is called `modeline`. See `:help modeline`
 -- -- vim: ts=2 sts=2 sw=2 et
