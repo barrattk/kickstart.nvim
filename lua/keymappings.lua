@@ -26,8 +26,8 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Ranger
-vim.keymap.set('n', '<leader>e', function() require('ranger-nvim').open() end, { desc = 'Ranger' })
-vim.g.ranger_map_keys=0
+-- vim.keymap.set('n', '<leader>e', function() require('ranger-nvim').open() end, { desc = 'Ranger' })
+-- vim.g.ranger_map_keys=0
 
 -- Better window navigation
 vim.keymap.set({ 'n', 't' }, "<C-h>", "<C-w>h", {desc = "Window Navigation"})
