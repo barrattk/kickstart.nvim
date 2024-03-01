@@ -34,11 +34,11 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
-  -- NOTE: First, some plugins that don't require any configuration
-
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
+  'lewis6991/gitsigns.nvim',
+
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
   -- Mason
@@ -89,7 +89,6 @@ require('lazy').setup({
     }
   },
 
-  'lewis6991/gitsigns.nvim',
 
   {
     -- Set lualine as statusline
@@ -252,8 +251,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { "*" },
   command = [[%s/\s\+$//e ]],
 })
-
--- require('gitsigns').setup()
 
 
 --
