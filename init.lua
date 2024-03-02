@@ -54,7 +54,9 @@ require('lazy').setup({
   require 'comment',
   require 'ranger',
 
- -- require 'term',
+--   'p00f/clangd_extensions.nvim',
+
+  -- require 'term',
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
@@ -477,6 +479,29 @@ require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 --  the `settings` field of the server config. You must look up that documentation yourself.
 
 
+
+-- some settings can only passed as commandline flags, see `clangd --help`
+local clangd_flags = {
+  "--background-index",
+  "--fallback-style=Google",
+  "--all-scopes-completion",
+  "--clang-tidy",
+  "--log=error",
+  "--suggest-missing-includes",
+  "--cross-file-rename",
+  "--completion-style=detailed",
+  "--pch-storage=memory", -- could also be disk
+  "--folding-ranges",
+  "--enable-config", -- clangd 11+ supports reading from .clangd configuration file
+  "--offset-encoding=utf-16", --temporary fix for null-ls
+  -- "--limit-references=1000",
+  -- "--limit-resutls=1000",
+  -- "--malloc-trim",
+  -- "--clang-tidy-checks=-*,llvm-*,clang-analyzer-*,modernize-*,-modernize-use-trailing-return-type",
+  -- "--header-insertion=never",
+  -- "--query-driver=<list-of-white-listed-complers>"
+}
+
 local servers = {
   clangd = {  --- I've got no idea if these are being picked up
       -- filetypes ={ "keith" },
@@ -509,7 +534,7 @@ require("mason-lspconfig").setup()
 require("lspconfig").lua_ls.setup {}
 require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").pyright.setup {}
-require("lspconfig").clangd.setup {}
+require("lspconfig").clangd.setup {cmd = {"clangd", unpack(clangd_flags) },}
 
 -- -- Ensure the servers above are installed
 -- local mason_lspconfig = require 'mason-lspconfig'
