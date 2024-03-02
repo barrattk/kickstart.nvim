@@ -15,7 +15,7 @@
 
 
 
--- a different Ranger plugin
+-- -- a different Ranger plugin
 -- return {
 --   'kevinhwang91/rnvimr',
 --
