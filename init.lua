@@ -335,7 +335,9 @@ vim.keymap.set('n', '<leader>dd', vim.diagnostic.disable, { desc = 'Disable Diag
 vim.keymap.set('n', '<leader>de', vim.diagnostic.enable, { desc = 'Ensable Diagnostics' })
 
 
-
+-- vim.api.nvim_buf_set_keymap(0, 'n', '<leader>dt', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true, desc="Diagnostics toggle"})
+-- vim.keymap.set('n', '<leader>dt', vim.diagnostic.reset, {silent=true, noremap=true, desc="Diagnostics toggle"})
+-- vim.keymap.set('n', '<leader>dt', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true, desc="Diagnostics toggle"})
 local lsp = require('lsp-zero').preset({})
 
 
@@ -502,23 +504,6 @@ local clangd_flags = {
   -- "--query-driver=<list-of-white-listed-complers>"
 }
 
-local servers = {
-  clangd = {  --- I've got no idea if these are being picked up
-      -- filetypes ={ "keith" },
-      single_file_support = false,
-  },
-  --  gopls = {},
-  pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
-
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
-}
 
 -- Setup neovim lua configuration
 require('neodev').setup()
@@ -536,6 +521,23 @@ require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").pyright.setup {}
 require("lspconfig").clangd.setup {cmd = {"clangd", unpack(clangd_flags) },}
 
+-- local servers = {
+--   clangd = {  --- I've got no idea if these are being picked up
+--       -- filetypes ={ "keith" },
+--       single_file_support = false,
+--   },
+--   --  gopls = {},
+--   pyright = {},
+--   -- rust_analyzer = {},
+--   -- tsserver = {},
+--
+--   lua_ls = {
+--     Lua = {
+--       workspace = { checkThirdParty = false },
+--       telemetry = { enable = false },
+--     },
+--   },
+-- }
 -- -- Ensure the servers above are installed
 -- local mason_lspconfig = require 'mason-lspconfig'
 --
