@@ -234,7 +234,7 @@ require('gitsigns').setup{
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
-    vim.highlight.on_yank()
+    vim.highlight.on_yank({timeout=200})
   end,
   group = highlight_group,
   pattern = '*',
@@ -255,6 +255,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 
+
 --
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
@@ -271,6 +272,7 @@ require('telescope').setup {
       '--column',
       '--smart-case',
       '-uu', -- Unrestricted !-- two -u flags means search hidden files and directories "--hidden" also works
+      '-L', -- follow symoblic links
     },
     mappings = {
       i = {

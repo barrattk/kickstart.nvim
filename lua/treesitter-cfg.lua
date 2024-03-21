@@ -12,13 +12,11 @@ end
 
 
 treesitter.setup {
-
-
---  Add languages to be installed here that you want installed for treesitter
+  -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'java' },
   ignore_install={},
   sync_install=false,
-  -- modules={}, -- unable to see what this does
+  modules={}, -- unable to see what this does
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -30,7 +28,7 @@ treesitter.setup {
     keymaps = {
       init_selection = '<ENTER>',
       node_incremental = '<ENTER>',
-      scope_incremental = '<c-s>', -- Not working?
+      scope_incremental = '<C-s>',
       node_decremental = '<BS>',
     },
   },

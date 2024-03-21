@@ -60,8 +60,13 @@ vim.opt.runtimepath:remove("/usr/share/vim/vimfiles")  -- separate vim plugins f
 --  Note: I also had to run 'python -m pip install --user pynvim' in a terminal
 vim.g.python3_host_prog = '/usr/bin/python3'
 
-
 vim.opt.spelllang="en_gb"
+
+-- vim.api.nvim_set_hl(0, "Visual", {bg='darkgreen'}) -- darkgreen is OK
+vim.api.nvim_set_hl(0, "Visual", {bg='black'}) -- black is OK
+
+-- vim.api.nvim_set_hl(0, "Visual", {bg='lightmagenta'}) -- not OK
+-- vim.api.nvim_set_hl(0, "Visual", {bg='darkgrey'})  -- darkgrey is not OK
 
 --
 -- -----------------------------------------------------------
