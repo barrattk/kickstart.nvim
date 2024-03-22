@@ -48,6 +48,9 @@ require('lazy').setup({
   -- Colorscheme
   require 'colorscheme',
 
+  -- Rainbow-delimiters
+  'hiphish/rainbow-delimiters.nvim',
+
   -- Autocomplete
   require 'nvim-cmp',
   -- Comment out lines
@@ -311,7 +314,7 @@ require "vim-options"
 -- require('telescope').load_extension('projects')  -- Type :Telescope projects
 require 'keymappings'
 require 'commands'
-
+require 'rainbow-delimiters'
 -- require('refactoring').setup({})
 
 
