@@ -68,6 +68,10 @@ vim.api.nvim_set_hl(0, "Visual", {bg='black'}) -- black is OK
 -- vim.api.nvim_set_hl(0, "Visual", {bg='lightmagenta'}) -- not OK
 -- vim.api.nvim_set_hl(0, "Visual", {bg='darkgrey'})  -- darkgrey is not OK
 
+--Set libclang searchpath. This should point to the directory containing `libclang.so`.
+-- Leave empty to auto-detect.
+vim.g.grayout_libclang_path = ''
+
 --
 -- -----------------------------------------------------------
 -- -- Tabs, indent
