@@ -51,6 +51,7 @@ require('lazy').setup({
   -- Rainbow-delimiters
   'hiphish/rainbow-delimiters.nvim',
 
+  "nvim-neotest/nvim-nio",
   -- Autocomplete
   require 'nvim-cmp',
   -- Comment out lines
@@ -95,6 +96,7 @@ require('lazy').setup({
   },
 
 
+
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -115,7 +117,7 @@ require('lazy').setup({
   },
 
   -- Fuzzy Finder (files, lsp, etc)
-  {'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+  {'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' }, file_ignore_patterns = {"_build"} },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -167,6 +169,9 @@ require('lazy').setup({
   --     'nvim-telescope/telescope.nvim'
   --   },
   -- },
+
+  -- require 'grayout',
+  -- require 'semantic-tokens',
 
   -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
@@ -257,6 +262,16 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   command = [[%s/\s\+$//e ]],
 })
 
+
+-- vim.api.nvim_create_autocmd('BufReadPost',  {
+--   pattern = { "cpp" },
+--   command = [[:GrayoutUpdate ]],
+-- })
+--
+--   vim.api.nvim_create_autocmd('BufWritePost', {
+--   pattern = { "cpp"},
+--   command = [[:GrayoutUpdate ]],
+-- })
 
 
 --
@@ -505,7 +520,7 @@ local clangd_flags = {
   -- "--limit-resutls=1000",
   -- "--malloc-trim",
   -- "--clang-tidy-checks=-*,llvm-*,clang-analyzer-*,modernize-*,-modernize-use-trailing-return-type",
-  -- "--header-insertion=never",
+  "--header-insertion=never",
   -- "--query-driver=<list-of-white-listed-complers>"
 }
 
