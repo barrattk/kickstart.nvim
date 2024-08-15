@@ -13,7 +13,7 @@ end
 
 treesitter.setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'java' },
+  ensure_installed = { 'c', 'cpp', 'go', 'make', 'ssh_config', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'java' },
   ignore_install={},
   sync_install=false,
   modules={}, -- unable to see what this does
