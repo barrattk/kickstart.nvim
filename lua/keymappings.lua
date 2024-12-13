@@ -1,16 +1,13 @@
 
-
-
-
--- [[ Basic Keymaps ]]
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
 local opts = {noremap = true, silent = true}
 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true }) -- leader is the Space
 
-
+vim.keymap.set('n', "<leader><leader>r", "<cmd>source %<CR>", {desc = "Source this file"});
+-- Lua
+vim.keymap.set('n', "<leader>ll", ":.lua<CR>", {desc = "Run lua file"});
+vim.keymap.set('v', "<leader>ll", ":lua<CR>", {desc = "Run lua selection"});
+print("wibble")
 
 vim.keymap.set('n', '<c-u>', '<c-u>zz') -- Put cursor in middle after movement
 vim.keymap.set('n', '<c-d>', '<c-d>zz') -- Put cursor in middle after movement
@@ -25,19 +22,17 @@ vim.keymap.set('n', "N", 'Nzzzv') -- Put cursor in middle after movement
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
--- Ranger
--- vim.keymap.set('n', '<leader>e', function() require('ranger-nvim').open() end, { desc = 'Ranger' })
--- vim.g.ranger_map_keys=0
+-- Better window navigation using vim-tmux-navigator
+vim.keymap.set({ 'n', 't' }, "<C-h>", "<cmd> TmuxNavigateLeft<CR>", {desc = "Window Navigation"})
+vim.keymap.set({ 'n', 't' }, "<C-j>", "<cmd> TmuxNavigateDown<CR>", {desc = "Window Navigation"})
+vim.keymap.set({ 'n', 't' }, "<C-k>", "<cmd> TmuxNavigateUp<CR>",  {desc = "Window Navigation"})
+vim.keymap.set({ 'n', 't' }, "<C-l>", "<cmd> TmuxNavigateRight<CR>", {desc = "Window Navigation"})
 
--- Better window navigation
-vim.keymap.set({ 'n', 't' }, "<C-h>", "<C-w>h", {desc = "Window Navigation"})
-vim.keymap.set({ 'n', 't' }, "<C-j>", "<C-w>j", {desc = "Window Navigation"})
-vim.keymap.set({ 'n', 't' }, "<C-k>", "<C-w>k", {desc = "Window Navigation"})
-vim.keymap.set({ 'n', 't' }, "<C-l>", "<C-w>l", {desc = "Window Navigation"})
-
--- Cycle splits
--- vim.keymap.set('n', "<TAB>", "<C-W>w", {desc = "Cycle Splits"})
--- vim.keymap.set('n', "<S-TAB>", "<C-W>W", {desc = "Cycle Splits"})
+-- Better window navigation - without vim-tmux-navigator
+-- vim.keymap.set({ 'n', 't' }, "<C-h>", "<C-w>h", {desc = "Window Navigation"})
+-- vim.keymap.set({ 'n', 't' }, "<C-j>", "<C-w>j", {desc = "Window Navigation"})
+-- vim.keymap.set({ 'n', 't' }, "<C-k>", "<C-w>k", {desc = "Window Navigation"})
+-- vim.keymap.set({ 'n', 't' }, "<C-l>", "<C-w>l", {desc = "Window Navigation"})
 
 -- Resize with arrows
 vim.keymap.set('n', "<C-Up>", "<cmd>resize -2<CR>", {desc = 'Resize'})
@@ -51,7 +46,9 @@ vim.keymap.set('n', "<S-h>", ":bprevious<CR>", {desc = 'Buffer (Prev)'})
 vim.keymap.set('n', "<TAB>", ":bn<CR>", {desc = "Cycle buffers"})
 vim.keymap.set('n', "<S-TAB>", ":bp<CR>", {desc = "Cycle buffers"})
 
-vim.keymap.set('n', "<leader>x", ":BufDel<CR>", {desc = 'Buffer delete'}) -- requires ojroques/nvim-bufdel
+-- Why is deleting a buffer complicated?
+-- Following requires ojroques/nvim-bufdel
+vim.keymap.set('n', "<leader>x", ":BufDel<CR>", {desc = 'Buffer delete'})
 
 -- Stay in visual_mode after shift operation
 vim.keymap.set('v', ">", ">gv", opts)
@@ -73,21 +70,13 @@ vim.keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
 vim.keymap.set("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 vim.keymap.set("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
--- Paste in Insert mode
--- This keeps the current copy buffer and does not over-write it
--- vim.keymap.sePastet
-
 -- Paste in visual mode
 vim.keymap.set("v", "<leader>p", '"_dP', opts)
 vim.keymap.set("v", "y", 'ygv<esc>', opts)
 
-
+-- Set 'Q' to no operation so it's not annoying
 vim.keymap.set("n", "Q", "<nop>")
 
-
-
-
--- vim.keymap.set("n", "U", '<C-r>', opts) -- redo with the same key as undo
 
 -- Select Mode is a bit weird and I don't plan on using it
 -- See https://vi.stackexchange.com/questions/4891/what-is-the-select-mode-and-when-is-it-relevant-to-use-it
@@ -104,11 +93,9 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', opts)
 vim.keymap.set({'n', 't'}, '<M-1>', "<cmd>terminal<CR>", {desc = "Terminal"})
 
 
-
 vim.keymap.set('n', "<leader>hc", ":ClangdSwitchSourceHeader<CR>", {desc = 'ClangdSwitchSourceHeader'})
 
 vim.keymap.set('n', "<leader>sl", "<cmd>lua require('telescope.builtin').resume(require('telescope.themes').get_ivy({}))<CR>", {desc = '[S]each [l]ast Grep'})
-
 
 -- vim_session is a builtin feature (not a project)
 vim.keymap.set('n', '<F2>', ':mksession! ~/.local/state/nvim/.vim_session<CR>', {desc = "Session Write"})
@@ -248,80 +235,4 @@ vim.keymap.set('n', '<F3>', ':source ~/.local/state/nvim/.vim_session<CR>', {des
 -- --     ["<leader>e"] = { "<cmd> NvimTreeToggle<CR>", "Toggle nvimtree" },
 -- --   },
 -- -- }
---
--- M.nvterm = {
---   plugin = true,
---
---   t = {
---     -- toggle in terminal mode
---     ["<M-1>"] = {
---       function()
---         require("nvterm.terminal").toggle "horizontal"
---       end,
---       "toggle horizontal term",
---     },
---
---     ["<M-2>"] = {
---       function()
---         require("nvterm.terminal").toggle "vertical"
---       end,
---       "toggle vertical term",
---     },
---
---     ["<M-3>"] = {
---       function()
---         require("nvterm.terminal").toggle "float"
---       end,
---       "toggle floating term",
---     },
---   },
-
---
--- vim.keymap.set({'n', 't'}, '<M-1>', function() require("nvterm.terminal").toggle("horizontal") end, {desc = "Terminal(H)"})
--- vim.keymap.set({'n', 't'}, '<M-2>', function() require("nvterm.terminal").toggle("Vertical") end, {desc = "Terminal(V)"})
--- vim.keymap.set({'n', 't'}, '<M-3>', function() require("nvterm.terminal").toggle("Float") end, {desc = "Terminal(F)"})
-
-
-
---
---   n = {
---     -- toggle in normal mode
---     ["<M-1>"] = {
---       function()
---         require("nvterm.terminal").toggle "horizontal"
---       end,
---       "toggle horizontal term",
---     },
---
---     ["<M-2>"] = {
---       function()
---         require("nvterm.terminal").toggle "vertical"
---       end,
---       "toggle vertical term",
---     },
---
---     ["<M-3>"] = {
---       function()
---         require("nvterm.terminal").toggle "float"
---       end,
---       "toggle floating term",
---     },
---
---     -- new
---     ["<leader>h"] = {
---       function()
---         require("nvterm.terminal").new "horizontal"
---       end,
---       "new horizontal term",
---     },
---
---     ["<leader>v"] = {
---       function()
---         require("nvterm.terminal").new "vertical"
---       end,
---       "new vertical term",
---     },
---   },
--- }
--- return M
 --
