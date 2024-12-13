@@ -94,9 +94,10 @@ require('lazy').setup({
       {'L3MON4D3/LuaSnip'},     -- Required
     }
   },
-
-
-
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy=false,
+  },
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
