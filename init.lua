@@ -58,7 +58,10 @@ require('lazy').setup({
   "nvim-neotest/nvim-nio",
 
   -- Autocomplete
-  require 'nvim-cmp',
+  -- require 'nvim-cmp',
+
+  -- Autocomplete
+  require 'completion',
 
   -- Comment out lines
   require 'comment',
@@ -83,6 +86,7 @@ require('lazy').setup({
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
+      'saghen/blink.cmp'
     },
   },
   -- {
@@ -536,15 +540,16 @@ local clangd_flags = {
 require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+--local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+local capabilites = require('blink.cmp').get_lsp_capabilities()
 
 require("mason").setup()
 require("mason-lspconfig").setup()
 
 -- After setting up mason-lspconfig you may set up servers via lspconfig
-require("lspconfig").lua_ls.setup {}
-require("lspconfig").rust_analyzer.setup {}
+require("lspconfig").lua_ls.setup {capabilites = capabilites}
+-- require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").pyright.setup {}
 require("lspconfig").clangd.setup {cmd = {"clangd", unpack(clangd_flags) },}
 
