@@ -5,12 +5,8 @@
 -- Set <space> as the leader key
 -- See `:help mapleader`
 -- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-
-
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
-
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -58,9 +54,6 @@ require('lazy').setup({
   "nvim-neotest/nvim-nio",
 
   -- Autocomplete
-  -- require 'nvim-cmp',
-
-  -- Autocomplete
   require 'completion',
 
   -- Comment out lines
@@ -90,21 +83,6 @@ require('lazy').setup({
       'saghen/blink.cmp'
     },
   },
-  -- {
-  --   'VonHeikemen/lsp-zero.nvim',
-  --   branch = 'v2.x',
-  --   dependencies = {
-  --     -- LSP Support
-  --     {'neovim/nvim-lspconfig'},             -- Required
-  --     {'williamboman/mason.nvim'},           -- Optional
-  --     {'williamboman/mason-lspconfig.nvim'}, -- Optional
-  --
-  --     -- Autocompletion
-  --     {'hrsh7th/nvim-cmp'},     -- Required
-  --     {'hrsh7th/cmp-nvim-lsp'}, -- Required
-  --     {'L3MON4D3/LuaSnip'},     -- Required
-  --   }
-  -- },
   {
     "christoomey/vim-tmux-navigator",
     lazy=false,
@@ -158,6 +136,7 @@ require('lazy').setup({
   -- Markup Viewer
   {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
 
+  -- require 'flash',
   {
     "folke/flash.nvim",
     event = "VeryLazy",
@@ -181,9 +160,6 @@ require('lazy').setup({
   --     'nvim-telescope/telescope.nvim'
   --   },
   -- },
-
-  -- require 'grayout',
-  -- require 'semantic-tokens',
 
   -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
@@ -273,18 +249,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { "*" },
   command = [[%s/\s\+$//e ]],
 })
-
-
--- vim.api.nvim_create_autocmd('BufReadPost',  {
---   pattern = { "cpp" },
---   command = [[:GrayoutUpdate ]],
--- })
---
---   vim.api.nvim_create_autocmd('BufWritePost', {
---   pattern = { "cpp"},
---   command = [[:GrayoutUpdate ]],
--- })
-
 
 --
 -- See `:help telescope` and `:help telescope.setup()`
