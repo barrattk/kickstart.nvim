@@ -41,26 +41,32 @@ require('lazy').setup({
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+
   -- Mason
   'williamboman/mason.nvim',
+
   -- Buffer delete
   'ojroques/nvim-bufdel',
+
   -- Colorscheme
   require 'colorscheme',
 
   -- Rainbow-delimiters
   'hiphish/rainbow-delimiters.nvim',
 
+  -- nvim-nio is for asynchronous IO
   "nvim-neotest/nvim-nio",
+
   -- Autocomplete
   require 'nvim-cmp',
+
   -- Comment out lines
   require 'comment',
+
   require 'ranger',
 
 --   'p00f/clangd_extensions.nvim',
 
-  -- require 'term',
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
@@ -79,21 +85,21 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
-  {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
-    dependencies = {
-      -- LSP Support
-      {'neovim/nvim-lspconfig'},             -- Required
-      {'williamboman/mason.nvim'},           -- Optional
-      {'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-      -- Autocompletion
-      {'hrsh7th/nvim-cmp'},     -- Required
-      {'hrsh7th/cmp-nvim-lsp'}, -- Required
-      {'L3MON4D3/LuaSnip'},     -- Required
-    }
-  },
+  -- {
+  --   'VonHeikemen/lsp-zero.nvim',
+  --   branch = 'v2.x',
+  --   dependencies = {
+  --     -- LSP Support
+  --     {'neovim/nvim-lspconfig'},             -- Required
+  --     {'williamboman/mason.nvim'},           -- Optional
+  --     {'williamboman/mason-lspconfig.nvim'}, -- Optional
+  --
+  --     -- Autocompletion
+  --     {'hrsh7th/nvim-cmp'},     -- Required
+  --     {'hrsh7th/cmp-nvim-lsp'}, -- Required
+  --     {'L3MON4D3/LuaSnip'},     -- Required
+  --   }
+  -- },
   {
     "christoomey/vim-tmux-navigator",
     lazy=false,
@@ -359,7 +365,7 @@ vim.keymap.set('n', '<leader>de', vim.diagnostic.enable, { desc = 'Ensable Diagn
 -- vim.api.nvim_buf_set_keymap(0, 'n', '<leader>dt', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true, desc="Diagnostics toggle"})
 -- vim.keymap.set('n', '<leader>dt', vim.diagnostic.reset, {silent=true, noremap=true, desc="Diagnostics toggle"})
 -- vim.keymap.set('n', '<leader>dt', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true, desc="Diagnostics toggle"})
-local lsp = require('lsp-zero').preset({})
+-- local lsp = require('lsp-zero').preset({})
 
 
 
@@ -443,7 +449,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- end)
 
 -- (Optional) Configure lua language server for neovim
-require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+-- require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 --
 -- lsp.setup()
 
