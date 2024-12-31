@@ -50,6 +50,7 @@ vim.keymap.set('n', "<S-TAB>", ":bp<CR>", {desc = "Cycle buffers"})
 -- Following requires ojroques/nvim-bufdel
 vim.keymap.set('n', "<leader>x", ":BufDel<CR>", {desc = 'Buffer delete'})
 
+
 -- Stay in visual_mode after shift operation
 vim.keymap.set('v', ">", ">gv", opts)
 vim.keymap.set('v', "<", "<gv", opts)

@@ -32,17 +32,14 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
-
   require 'gitsigns-cfg',
-
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
 
   -- Mason
   'williamboman/mason.nvim',
 
   -- Buffer delete
+  -- This plugin works well - I've tried to replace it but other
+  -- options are worse (so far)
   'ojroques/nvim-bufdel',
 
   -- Colorscheme
