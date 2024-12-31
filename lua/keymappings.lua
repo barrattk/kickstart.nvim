@@ -50,6 +50,7 @@ vim.keymap.set('n', "<S-TAB>", ":bp<CR>", {desc = "Cycle buffers"})
 -- Following requires ojroques/nvim-bufdel
 vim.keymap.set('n', "<leader>x", ":BufDel<CR>", {desc = 'Buffer delete'})
 
+
 -- Stay in visual_mode after shift operation
 vim.keymap.set('v', ">", ">gv", opts)
 vim.keymap.set('v', "<", "<gv", opts)
@@ -100,6 +101,25 @@ vim.keymap.set('n', "<leader>sl", "<cmd>lua require('telescope.builtin').resume(
 -- vim_session is a builtin feature (not a project)
 vim.keymap.set('n', '<F2>', ':mksession! ~/.local/state/nvim/.vim_session<CR>', {desc = "Session Write"})
 vim.keymap.set('n', '<F3>', ':source ~/.local/state/nvim/.vim_session<CR>', {desc = "Session Load"})
+
+
+-------------------------------------------------------------------------------
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+vim.keymap.set('n', '<leader>de', function() vim.diagnostic.enable(true) end, { desc = 'Ensable Diagnostics' })
+vim.keymap.set('n', '<leader>dd', function() vim.diagnostic.enable(false) end, { desc = 'Disable Diagnostics' })
+
+-- vim.api.nvim_buf_set_keymap(0, 'n', '<leader>dt', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true, desc="Diagnostics toggle"})
+-- vim.keymap.set('n', '<leader>dt', vim.diagnostic.reset, {silent=true, noremap=true, desc="Diagnostics toggle"})
+-- vim.keymap.set('n', '<leader>dt', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true, desc="Diagnostics toggle"})
+
+-------------------------------------------------------------------------------
+
+-- local lsp = require('lsp-zero').preset({})
 
 -- prompt for a refactor to apply when the remap is triggered
 -- vim.api.nvim_set_keymap(

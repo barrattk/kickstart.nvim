@@ -5,12 +5,8 @@
 -- Set <space> as the leader key
 -- See `:help mapleader`
 -- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-
-
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
-
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -36,31 +32,35 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
-  'lewis6991/gitsigns.nvim',
+  require 'gitsigns-cfg',
 
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
   -- Mason
   'williamboman/mason.nvim',
+
   -- Buffer delete
+  -- This plugin works well - I've tried to replace it but other
+  -- options are worse (so far)
   'ojroques/nvim-bufdel',
+
   -- Colorscheme
   require 'colorscheme',
 
   -- Rainbow-delimiters
   'hiphish/rainbow-delimiters.nvim',
 
+  -- nvim-nio is for asynchronous IO
   "nvim-neotest/nvim-nio",
+
   -- Autocomplete
-  require 'nvim-cmp',
+  require 'completion',
+
   -- Comment out lines
   require 'comment',
+
   require 'ranger',
 
 --   'p00f/clangd_extensions.nvim',
 
-  -- require 'term',
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
@@ -73,26 +73,13 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', branch ='legacy', tag = 'legacy', commit= '0ba1e16', opts = {} },
+      -- { 'j-hui/fidget.nvim', branch ='legacy', tag = 'legacy', commit= '0ba1e16', opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
+      'saghen/blink.cmp'
     },
-  },
-  {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
-    dependencies = {
-      -- LSP Support
-      {'neovim/nvim-lspconfig'},             -- Required
-      {'williamboman/mason.nvim'},           -- Optional
-      {'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-      -- Autocompletion
-      {'hrsh7th/nvim-cmp'},     -- Required
-      {'hrsh7th/cmp-nvim-lsp'}, -- Required
-      {'L3MON4D3/LuaSnip'},     -- Required
-    }
   },
   {
     "christoomey/vim-tmux-navigator",
@@ -118,7 +105,11 @@ require('lazy').setup({
   },
 
   -- Fuzzy Finder (files, lsp, etc)
-  {'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' }, file_ignore_patterns = {"_build"} },
+  {'nvim-telescope/telescope.nvim',
+    -- branch = '0.1.x',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    file_ignore_patterns = {"_build"}
+  },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -147,20 +138,7 @@ require('lazy').setup({
   -- Markup Viewer
   {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
 
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    ---@type Flash.Config
-    opts = {},
-    -- stylua: ignore
-    keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    },
-  },
+  require 'flash-cfg',
 
   -- Project Extension in Telescope
   -- I don't really understand how to use this project plugin
@@ -170,9 +148,6 @@ require('lazy').setup({
   --     'nvim-telescope/telescope.nvim'
   --   },
   -- },
-
-  -- require 'grayout',
-  -- require 'semantic-tokens',
 
   -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
@@ -193,49 +168,6 @@ require('lazy').setup({
 -----------------------------------------------------------------------------------
 
 
-require('gitsigns').setup{
---  ...
-  on_attach = function(bufnr)
-    local gs = package.loaded.gitsigns
-
-    local function map(mode, l, r, opts)
-      opts = opts or {}
-      opts.buffer = bufnr
-      vim.keymap.set(mode, l, r, opts)
-    end
-
-    -- Navigation
-    map('n', ']c', function()
-      if vim.wo.diff then return ']c' end
-      vim.schedule(function() gs.next_hunk() end)
-      return '<Ignore>'
-    end, {expr=true})
-
-    map('n', '[c', function()
-      if vim.wo.diff then return '[c' end
-      vim.schedule(function() gs.prev_hunk() end)
-      return '<Ignore>'
-    end, {expr=true})
-
-    -- Actions
-    map('n', '<leader>hs', gs.stage_hunk, { desc = 'Stage Hunk'})
-    map('n', '<leader>hr', gs.reset_hunk, { desc = 'Reset Hunk'})
-    map('v', '<leader>hs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end, { desc = 'Stage Hunk'})
-    map('v', '<leader>hr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end, { desc = 'Reset Hunk'})
-    map('n', '<leader>hS', gs.stage_buffer, { desc = 'Stage buffer'})
-    map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Undo_stage_hunk'})
-    map('n', '<leader>hR', gs.reset_buffer, { desc = 'Reset buffer'})
-    map('n', '<leader>hp', gs.preview_hunk, { desc = 'Preview Hunk'})
-    map('n', '<leader>hb', function() gs.blame_line{full=true} end, { desc = 'Blame Line'})
-    map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'Toggle blame_line'})
-    map('n', '<leader>hd', gs.diffthis, { desc = 'Diff this'})
-    map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = 'Diff this'})
-    map('n', '<leader>td', gs.toggle_deleted, { desc = 'toggle_deleted'})
-
-    -- Text object
-    map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-  end
-}
 
 
 -- [[ Highlight on yank ]]
@@ -262,18 +194,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { "*" },
   command = [[%s/\s\+$//e ]],
 })
-
-
--- vim.api.nvim_create_autocmd('BufReadPost',  {
---   pattern = { "cpp" },
---   command = [[:GrayoutUpdate ]],
--- })
---
---   vim.api.nvim_create_autocmd('BufWritePost', {
---   pattern = { "cpp"},
---   command = [[:GrayoutUpdate ]],
--- })
-
 
 --
 -- See `:help telescope` and `:help telescope.setup()`
@@ -346,20 +266,6 @@ end)
 -- vim.keymap.set('n', '<leader>ds', require('nvim-dap-ui').eval, { desc = '[d]ebug [s]start' })
 
 
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
-vim.keymap.set('n', '<leader>dd', vim.diagnostic.disable, { desc = 'Disable Diagnostics' })
-vim.keymap.set('n', '<leader>de', vim.diagnostic.enable, { desc = 'Ensable Diagnostics' })
-
-
--- vim.api.nvim_buf_set_keymap(0, 'n', '<leader>dt', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true, desc="Diagnostics toggle"})
--- vim.keymap.set('n', '<leader>dt', vim.diagnostic.reset, {silent=true, noremap=true, desc="Diagnostics toggle"})
--- vim.keymap.set('n', '<leader>dt', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true, desc="Diagnostics toggle"})
-local lsp = require('lsp-zero').preset({})
 
 
 
@@ -443,7 +349,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- end)
 
 -- (Optional) Configure lua language server for neovim
-require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+-- require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 --
 -- lsp.setup()
 
@@ -530,53 +436,16 @@ local clangd_flags = {
 require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+--local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 require("mason").setup()
 require("mason-lspconfig").setup()
 
 -- After setting up mason-lspconfig you may set up servers via lspconfig
-require("lspconfig").lua_ls.setup {}
-require("lspconfig").rust_analyzer.setup {}
+require("lspconfig").lua_ls.setup {capabilities = capabilities}
+-- require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").pyright.setup {}
 require("lspconfig").clangd.setup {cmd = {"clangd", unpack(clangd_flags) },}
 
--- local servers = {
---   clangd = {  --- I've got no idea if these are being picked up
---       -- filetypes ={ "keith" },
---       single_file_support = false,
---   },
---   --  gopls = {},
---   pyright = {},
---   -- rust_analyzer = {},
---   -- tsserver = {},
---
---   lua_ls = {
---     Lua = {
---       workspace = { checkThirdParty = false },
---       telemetry = { enable = false },
---     },
---   },
--- }
--- -- Ensure the servers above are installed
--- local mason_lspconfig = require 'mason-lspconfig'
---
--- mason_lspconfig.setup {
---   ensure_installed = vim.tbl_keys(servers),
--- }
---
--- mason_lspconfig.setup_handlers {
---
---   function(server_name)
---     require('lspconfig')[server_name].setup {
---       capabilities = capabilities,
---       on_attach = on_attach,
---       settings = servers[server_name],
---     }
---   end,
--- }
-
-
--- -- The line beneath this is called `modeline`. See `:help modeline`
--- -- vim: ts=2 sts=2 sw=2 et
