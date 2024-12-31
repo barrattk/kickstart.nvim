@@ -450,52 +450,15 @@ require('neodev').setup()
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 --local capabilities = vim.lsp.protocol.make_client_capabilities()
 -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-local capabilites = require('blink.cmp').get_lsp_capabilities()
+local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 require("mason").setup()
 require("mason-lspconfig").setup()
 
 -- After setting up mason-lspconfig you may set up servers via lspconfig
-require("lspconfig").lua_ls.setup {capabilites = capabilites}
+-- Note: the spelling of capabilites is wrong for lua_ls.setup
+require("lspconfig").lua_ls.setup {capabilites = capabilities}
 -- require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").pyright.setup {}
 require("lspconfig").clangd.setup {cmd = {"clangd", unpack(clangd_flags) },}
 
--- local servers = {
---   clangd = {  --- I've got no idea if these are being picked up
---       -- filetypes ={ "keith" },
---       single_file_support = false,
---   },
---   --  gopls = {},
---   pyright = {},
---   -- rust_analyzer = {},
---   -- tsserver = {},
---
---   lua_ls = {
---     Lua = {
---       workspace = { checkThirdParty = false },
---       telemetry = { enable = false },
---     },
---   },
--- }
--- -- Ensure the servers above are installed
--- local mason_lspconfig = require 'mason-lspconfig'
---
--- mason_lspconfig.setup {
---   ensure_installed = vim.tbl_keys(servers),
--- }
---
--- mason_lspconfig.setup_handlers {
---
---   function(server_name)
---     require('lspconfig')[server_name].setup {
---       capabilities = capabilities,
---       on_attach = on_attach,
---       settings = servers[server_name],
---     }
---   end,
--- }
-
-
--- -- The line beneath this is called `modeline`. See `:help modeline`
--- -- vim: ts=2 sts=2 sw=2 et
