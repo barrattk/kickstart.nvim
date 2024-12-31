@@ -108,7 +108,11 @@ require('lazy').setup({
   },
 
   -- Fuzzy Finder (files, lsp, etc)
-  {'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' }, file_ignore_patterns = {"_build"} },
+  {'nvim-telescope/telescope.nvim',
+    -- branch = '0.1.x',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    file_ignore_patterns = {"_build"}
+  },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -265,19 +269,6 @@ end)
 -- vim.keymap.set('n', '<leader>ds', require('nvim-dap-ui').eval, { desc = '[d]ebug [s]start' })
 
 
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
-vim.keymap.set('n', '<leader>de', function() vim.diagnostic.enable(true) end, { desc = 'Ensable Diagnostics' })
-vim.keymap.set('n', '<leader>dd', function() vim.diagnostic.enable(false) end, { desc = 'Disable Diagnostics' })
-
--- vim.api.nvim_buf_set_keymap(0, 'n', '<leader>dt', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true, desc="Diagnostics toggle"})
--- vim.keymap.set('n', '<leader>dt', vim.diagnostic.reset, {silent=true, noremap=true, desc="Diagnostics toggle"})
--- vim.keymap.set('n', '<leader>dt', ':call v:lua.toggle_diagnostics()<CR>', {silent=true, noremap=true, desc="Diagnostics toggle"})
--- local lsp = require('lsp-zero').preset({})
 
 
 
@@ -456,8 +447,7 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 
 -- After setting up mason-lspconfig you may set up servers via lspconfig
--- Note: the spelling of capabilites is wrong for lua_ls.setup
-require("lspconfig").lua_ls.setup {capabilites = capabilities}
+require("lspconfig").lua_ls.setup {capabilities = capabilities}
 -- require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").pyright.setup {}
 require("lspconfig").clangd.setup {cmd = {"clangd", unpack(clangd_flags) },}
