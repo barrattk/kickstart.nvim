@@ -82,6 +82,9 @@ require('lazy').setup({
   },
 
 
+  -- Git related plugins
+  'tpope/vim-fugitive',
+
   -- Markup Viewer
   {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
 
@@ -93,17 +96,8 @@ require('lazy').setup({
   --    up-to-date with whatever is in the kickstart repo.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
-  -- Useful plugin to show you pending keybinds.
-
-  -- Git related plugins
-  'tpope/vim-fugitive',
-  require 'config/gitsigns',
-  require 'config/lualine',
-  require 'config/telescope',
-  require 'config/treesitter',
-  require 'config/flash',
-  require 'config/which-key',
+  -- import everything in the lua/config folder
+  {import = 'config'},
 
 }, {})
 
