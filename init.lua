@@ -98,15 +98,7 @@ require('lazy').setup({
   },
 
   require 'config.telescope',
-
-  {
-    -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = ':TSUpdate',
-  },
+  require 'config.treesitter',
 
   -- Markup Viewer
   {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
@@ -158,7 +150,6 @@ require "vim-options"
 require 'keymappings'
 require 'commands'
 require 'rainbow-delimiters'
-require 'treesitter-cfg'
 
 
 vim.keymap.set('n', '<Leader>df', function()
