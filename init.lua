@@ -28,9 +28,6 @@ require('lazy').setup({
   -- Mason
   'williamboman/mason.nvim',
 
-  -- Autocomplete
-  require 'completion',
-
   -- 'p00f/clangd_extensions.nvim',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
