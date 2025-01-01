@@ -36,10 +36,6 @@ require('lazy').setup({
   -- Colorscheme
   require 'colorscheme',
 
-
-  -- nvim-nio is for asynchronous IO
-  "nvim-neotest/nvim-nio",
-
   -- Autocomplete
   require 'completion',
 
