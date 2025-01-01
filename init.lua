@@ -71,10 +71,6 @@ require('lazy').setup({
     },
   },
 
-
-  -- Git related plugins
-  'tpope/vim-fugitive',
-
   -- Markup Viewer
   {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
 
