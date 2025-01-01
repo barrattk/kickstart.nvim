@@ -22,11 +22,6 @@ vim.keymap.set('n', "N", 'Nzzzv') -- Put cursor in middle after movement
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
--- Better window navigation using vim-tmux-navigator
-vim.keymap.set({ 'n', 't' }, "<C-h>", "<cmd> TmuxNavigateLeft<CR>", {desc = "Window Navigation"})
-vim.keymap.set({ 'n', 't' }, "<C-j>", "<cmd> TmuxNavigateDown<CR>", {desc = "Window Navigation"})
-vim.keymap.set({ 'n', 't' }, "<C-k>", "<cmd> TmuxNavigateUp<CR>",  {desc = "Window Navigation"})
-vim.keymap.set({ 'n', 't' }, "<C-l>", "<cmd> TmuxNavigateRight<CR>", {desc = "Window Navigation"})
 
 -- Better window navigation - without vim-tmux-navigator
 -- vim.keymap.set({ 'n', 't' }, "<C-h>", "<C-w>h", {desc = "Window Navigation"})
