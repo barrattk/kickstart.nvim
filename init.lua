@@ -73,10 +73,6 @@ require('lazy').setup({
     },
   },
   {
-    "christoomey/vim-tmux-navigator",
-    lazy=false,
-  },
-  {
   -- Add indentation guides even on blank lines
   "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}
   },
