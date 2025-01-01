@@ -70,10 +70,6 @@ require('lazy').setup({
       'saghen/blink.cmp'
     },
   },
-  {
-  -- Add indentation guides even on blank lines
-  "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}
-  },
 
 
   -- Git related plugins
