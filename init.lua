@@ -71,8 +71,6 @@ require('lazy').setup({
     },
   },
 
-  -- Markup Viewer
-  {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
 
   -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
