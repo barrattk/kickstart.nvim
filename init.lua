@@ -24,9 +24,6 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --  as they will be available in your neovim runtime.
 require('lazy').setup({
-  -- Git related plugins
-  'tpope/vim-fugitive',
-  require 'config/gitsigns',
 
   -- Mason
   'williamboman/mason.nvim',
@@ -97,9 +94,6 @@ require('lazy').setup({
   "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}
   },
 
-  require 'config/telescope',
-  require 'config/treesitter',
-  require 'config/flash',
 
   -- Markup Viewer
   {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
@@ -114,7 +108,14 @@ require('lazy').setup({
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+
+  -- Git related plugins
+  'tpope/vim-fugitive',
+  require 'config/gitsigns',
+  require 'config/telescope',
+  require 'config/treesitter',
+  require 'config/flash',
+  require 'config/which-key',
 
 }, {})
 
