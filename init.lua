@@ -26,7 +26,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
-  require 'gitsigns-cfg',
+  require 'config/gitsigns',
 
   -- Mason
   'williamboman/mason.nvim',
@@ -97,13 +97,13 @@ require('lazy').setup({
   "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}
   },
 
-  require 'config.telescope',
-  require 'config.treesitter',
+  require 'config/telescope',
+  require 'config/treesitter',
+  require 'config/flash',
 
   -- Markup Viewer
   {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
 
-  require 'flash-cfg',
   -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
   require 'dap_debug',
