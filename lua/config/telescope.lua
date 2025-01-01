@@ -63,6 +63,7 @@ M.config = function()
   vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
   vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
   -- vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep{vimgrep_arguments = vimgrep_args_live}, { desc = '[S]earch by [G]rep' })
+  -- vim.keymap.set('n', "<leader>sl", "<cmd>lua require('telescope.builtin').resume(require('telescope.themes').get_ivy({}))<CR>", {desc = '[S]each [l]ast Grep'})
 
   vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 

@@ -41,9 +41,6 @@ vim.keymap.set('n', "<S-h>", ":bprevious<CR>", {desc = 'Buffer (Prev)'})
 vim.keymap.set('n', "<TAB>", ":bn<CR>", {desc = "Cycle buffers"})
 vim.keymap.set('n', "<S-TAB>", ":bp<CR>", {desc = "Cycle buffers"})
 
--- Why is deleting a buffer complicated?
--- Following requires ojroques/nvim-bufdel
-vim.keymap.set('n', "<leader>x", ":BufDel<CR>", {desc = 'Buffer delete'})
 
 
 -- Stay in visual_mode after shift operation
@@ -91,7 +88,6 @@ vim.keymap.set({'n', 't'}, '<M-1>', "<cmd>terminal<CR>", {desc = "Terminal"})
 
 vim.keymap.set('n', "<leader>hc", ":ClangdSwitchSourceHeader<CR>", {desc = 'ClangdSwitchSourceHeader'})
 
-vim.keymap.set('n', "<leader>sl", "<cmd>lua require('telescope.builtin').resume(require('telescope.themes').get_ivy({}))<CR>", {desc = '[S]each [l]ast Grep'})
 
 -- vim_session is a builtin feature (not a project)
 vim.keymap.set('n', '<F2>', ':mksession! ~/.local/state/nvim/.vim_session<CR>', {desc = "Session Write"})
