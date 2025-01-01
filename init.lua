@@ -33,9 +33,6 @@ require('lazy').setup({
   -- options are worse (so far)
   'ojroques/nvim-bufdel',
 
-  -- Colorscheme
-  require 'colorscheme',
-
   -- Autocomplete
   require 'completion',
 
