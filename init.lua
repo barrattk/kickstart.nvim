@@ -1,14 +1,11 @@
-
-
+--
 -- The starting point was https://github.com/nvim-lua/kickstart.nvim
-
--- Set <space> as the leader key
+--
 -- See `:help mapleader`
 -- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -25,7 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 --  You can configure plugins using the `config` key.
 --
 --  You can also configure plugins after the setup call,
---    as they will be available in your neovim runtime.
+--  as they will be available in your neovim runtime.
 require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -56,10 +53,10 @@ require('lazy').setup({
 
   require 'ranger',
 
---   'p00f/clangd_extensions.nvim',
+  -- 'p00f/clangd_extensions.nvim',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
+  -- The configuration is done below. Search for lspconfig to find it below.
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -95,7 +92,6 @@ require('lazy').setup({
       },
     },
   },
-
   {
   -- Add indentation guides even on blank lines
   "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}
@@ -116,8 +112,6 @@ require('lazy').setup({
   {"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
 
   require 'flash-cfg',
-
-
   -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
   require 'dap_debug',
@@ -136,9 +130,6 @@ require('lazy').setup({
 -- End lazy setup
 -----------------------------------------------------------------------------------
 
-
-
-
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -150,14 +141,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-
 -- Save session on when exiting - will get odd if using more than one window!!
 -- Maybe not needed?
 vim.api.nvim_create_autocmd('QuitPre', {
   pattern = { "*" },
   command = [[:mksession! ~/.local/state/nvim/.vim_session]],
 })
-
 
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { "*" },
@@ -169,11 +158,6 @@ require "vim-options"
 require 'keymappings'
 require 'commands'
 require 'rainbow-delimiters'
--- require('refactoring').setup({})
-
-
--- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
 require 'treesitter-cfg'
 
 
@@ -182,10 +166,6 @@ vim.keymap.set('n', '<Leader>df', function()
   widgets.centered_float(widgets.frames)
 end)
 -- vim.keymap.set('n', '<leader>ds', require('nvim-dap-ui').eval, { desc = '[d]ebug [s]start' })
-
-
-
-
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
