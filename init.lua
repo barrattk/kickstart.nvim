@@ -31,11 +31,6 @@ require('lazy').setup({
   -- Autocomplete
   require 'completion',
 
-  -- Comment out lines
-  require 'comment',
-
-  require 'ranger',
-
   -- 'p00f/clangd_extensions.nvim',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
