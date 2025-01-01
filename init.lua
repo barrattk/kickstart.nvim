@@ -36,8 +36,6 @@ require('lazy').setup({
   -- Colorscheme
   require 'colorscheme',
 
-  -- Rainbow-delimiters
-  'hiphish/rainbow-delimiters.nvim',
 
   -- nvim-nio is for asynchronous IO
   "nvim-neotest/nvim-nio",
@@ -128,8 +126,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 require "vim-options"
 require 'keymappings'
 require 'commands'
-require 'rainbow-delimiters'
-
 
 vim.keymap.set('n', '<Leader>df', function()
   local widgets = require('dap.ui.widgets')
