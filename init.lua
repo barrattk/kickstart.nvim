@@ -28,11 +28,6 @@ require('lazy').setup({
   -- Mason
   'williamboman/mason.nvim',
 
-  -- Buffer delete
-  -- This plugin works well - I've tried to replace it but other
-  -- options are worse (so far)
-  'ojroques/nvim-bufdel',
-
   -- Autocomplete
   require 'completion',
 
