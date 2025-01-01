@@ -77,19 +77,6 @@ require('lazy').setup({
     lazy=false,
   },
   {
-    -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = false,
-        theme = 'onedark',
-        component_separators = '|',
-        section_separators = '',
-      },
-    },
-  },
-  {
   -- Add indentation guides even on blank lines
   "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}
   },
@@ -112,6 +99,7 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
   require 'config/gitsigns',
+  require 'config/lualine',
   require 'config/telescope',
   require 'config/treesitter',
   require 'config/flash',
