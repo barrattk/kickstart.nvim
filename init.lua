@@ -27,6 +27,7 @@ require('lazy').setup({
 
   -- Mason
   'williamboman/mason.nvim',
+  { "rafamadriz/friendly-snippets" },
 
   -- 'p00f/clangd_extensions.nvim',
 
@@ -69,11 +70,11 @@ require('lazy').setup({
 -----------------------------------------------------------------------------------
 
 
-
 require "vim-options"
 require 'keymappings'
 require 'commands'
 require 'auto-commands'
+
 
 
 vim.keymap.set('n', '<Leader>df', function()
@@ -88,7 +89,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
     -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+    -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -260,5 +261,5 @@ require("mason-lspconfig").setup()
 require("lspconfig").lua_ls.setup {capabilities = capabilities}
 -- require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").pyright.setup {}
-require("lspconfig").clangd.setup {cmd = {"clangd", unpack(clangd_flags) },}
+require("lspconfig").clangd.setup { capabilities = capabilities, cmd = {"clangd", unpack(clangd_flags) },}
 
