@@ -27,7 +27,6 @@ require('lazy').setup({
 
   -- Mason
   'williamboman/mason.nvim',
-  { "rafamadriz/friendly-snippets" },
 
   -- 'p00f/clangd_extensions.nvim',
 
