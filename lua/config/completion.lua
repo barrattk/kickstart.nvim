@@ -2,8 +2,8 @@ return {
   'saghen/blink.cmp',
   -- optional: provides snippets for the snippet source
   dependencies = {
-      {'L3MON4D3/LuaSnip', version = 'v2.*'},
-      {'rafamadriz/friendly-snippets'},
+    { 'L3MON4D3/LuaSnip',            version = 'v2.*' },
+    { 'rafamadriz/friendly-snippets' },
   },
 
   -- use a release tag to download pre-built binaries
@@ -32,7 +32,7 @@ return {
       nerd_font_variant = 'mono'
     },
 
-  snippets = {
+    snippets = {
       expand = function(snippet) require('luasnip').lsp_expand(snippet) end,
       active = function(filter)
         if filter and filter.direction then
@@ -48,7 +48,15 @@ return {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+      providers = {
+        lazydev = {
+          name = "LazyDev",
+          module = "lazydev.integrations.blink",
+          -- make lazydev completions top priority (see `:h blink.cmp`)
+          score_offset = 100,
+        },
+      },
     },
   },
   opts_extend = { "sources.default" }

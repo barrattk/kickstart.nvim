@@ -100,7 +100,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 
     -- Workspace
-    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { desc = "Add Workspace Folder", buffer = ev.buf })
+    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder,
+      { desc = "Add Workspace Folder", buffer = ev.buf })
     vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder,
       { desc = "Remove Workspace Folder", buffer = ev.buf })
     vim.keymap.set('n', '<leader>wl', function()
@@ -139,8 +140,6 @@ local clangd_flags = {
   -- "--query-driver=<list-of-white-listed-complers>"
 }
 
--- Setup neovim lua configuration
-require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 --local capabilities = vim.lsp.protocol.make_client_capabilities()
