@@ -100,18 +100,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- TODO: clash with other keys
     -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, {desc = "Signature Help",  buffer = ev.buf})
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, {desc = "Add Workspace Folder",  buffer = ev.buf})
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, {desc = "Remove Workspace Folder",  buffer = ev.buf})
-    vim.keymap.set('n', '<space>wl',  function()
+    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, {desc = "Add Workspace Folder",  buffer = ev.buf})
+    vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, {desc = "Remove Workspace Folder",  buffer = ev.buf})
+    vim.keymap.set('n', '<leader>wl',  function()
                                         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                                       end, {desc = "List Workspace Folders",  buffer = ev.buf})
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, {desc = "Type definition",  buffer = ev.buf})
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, {desc = "Rename",  buffer = ev.buf})
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, {desc = "Code Action",  buffer = ev.buf})
+    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, {desc = "Type definition",  buffer = ev.buf})
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {desc = "Rename",  buffer = ev.buf})
+    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, {desc = "Code Action",  buffer = ev.buf})
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', function()
+    vim.keymap.set('n', '<leader>f', function()
                                       vim.lsp.buf.format { async = true }
-                                    end, opts)
+                                    end, {desc = "Format file",  buffer = ev.buf} )
   end,
 })
 
@@ -239,7 +239,7 @@ local clangd_flags = {
   -- "--limit-references=1000",
   -- "--limit-resutls=1000",
   -- "--malloc-trim",
-  -- "--clang-tidy-checks=-*,llvm-*,clang-analyzer-*,modernize-*,-modernize-use-trailing-return-type",
+  "--clang-tidy-checks=-*,llvm-*,clang-analyzer-*,modernize-*,-modernize-use-trailing-return-type",
   "--header-insertion=never",
   -- "--query-driver=<list-of-white-listed-complers>"
 }
@@ -261,4 +261,5 @@ require("lspconfig").lua_ls.setup {capabilities = capabilities}
 -- require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").pyright.setup {}
 require("lspconfig").clangd.setup { capabilities = capabilities, cmd = {"clangd", unpack(clangd_flags) },}
+require("lspconfig").clang_format.setup{ capabilities = capabilities }
 
