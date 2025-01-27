@@ -7,7 +7,6 @@ vim.keymap.set('n', "<leader><leader>r", "<cmd>source %<CR>", {desc = "Source th
 -- Lua
 vim.keymap.set('n', "<leader>ll", ":.lua<CR>", {desc = "Run lua file"});
 vim.keymap.set('v', "<leader>ll", ":lua<CR>", {desc = "Run lua selection"});
-print("wibble")
 
 vim.keymap.set('n', '<c-u>', '<c-u>zz') -- Put cursor in middle after movement
 vim.keymap.set('n', '<c-d>', '<c-d>zz') -- Put cursor in middle after movement
