@@ -1,5 +1,35 @@
 
+local M = {
+  "neanias/everforest-nvim",
+  lazy = false,
+  priority = 1000, -- make sure to load this before all the other start plugins
+}
 
+function M.config()
+  local everforest = require("everforest")
+  everforest.setup({
+    background = "hard",
+    transparent_background_level = 0,
+    dim_inactive_windows = false,
+    disable_italic_comments = false,
+    italics = true,
+    enable_italic = true,
+    sign_column_background = "none",
+    spell_foreground = false,
+    ui_contrast = "low",
+    show_eob = false,
+    diagnostic_line_highlight = false,
+    diagnostic_text_highlight = false,
+    diagnostic_virtual_text = "coloured",
+    on_highlights = function(hl, _)
+      hl["@string.special.symbol.ruby"] = { link = "@field" }
+    end,
+
+  })
+  everforest.load()
+end
+
+return M
 
 -- Using lazy.nvim
 -- return {
@@ -56,42 +86,42 @@
 -- }
 
 
-return {
- "rebelot/kanagawa.nvim",
--- Default options:
-  lazy = false,
-  priority = 1000,
-  config = function()
-  require('kanagawa').setup{
-    compile = false,             -- enable compiling the colorscheme
-    undercurl = true,            -- enable undercurls
-    commentStyle = { italic = true },
-    functionStyle = {},
-    keywordStyle = { italic = true},
-    statementStyle = { bold = true },
-    typeStyle = {},
-    transparent = false,         -- do not set background color
-    dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
-    terminalColors = true,       -- define vim.g.terminal_color_{0,17}
-    colors = {                   -- add/modify theme and palette colors
-        palette = {},
-        theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-    },
-    overrides = function(colors) -- add/modify highlights
-        return {}
-    end,
-    theme = "wave",              -- Load "wave" theme when 'background' option is not set
-    background = {               -- map the value of 'background' option to a theme
-        dark = "wave",           -- try "dragon" !
-        light = "lotus"
-    },
-  }
-
-  require('kanagawa').load()
--- setup must be called before loading
---vim.cmd("colorscheme kanagawa")
-  end,
-}
+-- return {
+--  "rebelot/kanagawa.nvim",
+-- -- Default options:
+--   lazy = false,
+--   priority = 1000,
+--   config = function()
+--   require('kanagawa').setup{
+--     compile = false,             -- enable compiling the colorscheme
+--     undercurl = true,            -- enable undercurls
+--     commentStyle = { italic = true },
+--     functionStyle = {},
+--     keywordStyle = { italic = true},
+--     statementStyle = { bold = true },
+--     typeStyle = {},
+--     transparent = false,         -- do not set background color
+--     dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
+--     terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+--     colors = {                   -- add/modify theme and palette colors
+--         palette = {},
+--         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+--     },
+--     overrides = function(colors) -- add/modify highlights
+--         return {}
+--     end,
+--     theme = "wave",              -- Load "wave" theme when 'background' option is not set
+--     background = {               -- map the value of 'background' option to a theme
+--         dark = "wave",           -- try "dragon" !
+--         light = "lotus"
+--     },
+--   }
+--
+--   require('kanagawa').load()
+-- -- setup must be called before loading
+-- --vim.cmd("colorscheme kanagawa")
+--   end,
+-- }
 
 
 
