@@ -103,7 +103,9 @@ M.config = function()
   -- require("lspconfig").rust_analyzer.setup {}
   require("lspconfig").pyright.setup {}
   require("lspconfig").clangd.setup { capabilities = capabilities, cmd = { "clangd", unpack(clangd_flags) }, }
-  require("lspconfig").clang_format.setup { capabilities = capabilities }
+  -- I think that clang-format is just part of clangd even though there is a
+  -- separate Mason install for it
+  -- require("lspconfig").clang_format.setup { capabilities = capabilities, }
 end
 
 
