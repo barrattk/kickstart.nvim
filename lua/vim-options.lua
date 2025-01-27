@@ -62,8 +62,9 @@ vim.g.python3_host_prog = '/usr/bin/python3'
 
 vim.opt.spelllang="en_gb"
 
--- vim.api.nvim_set_hl(0, "Visual", {bg='darkgreen'}) -- darkgreen is OK
-vim.api.nvim_set_hl(0, "Visual", {bg='black'}) -- black is OK
+-- Please see this for a list of colors :)
+-- https://i.pinimg.com/originals/aa/c1/aa/aac1aadcb55011e7e06ff651e99f61f1.png
+vim.api.nvim_set_hl(0, "Visual", {bg='darkseagreen1'}) -- black is OK
 
 -- vim.api.nvim_set_hl(0, "Visual", {bg='lightmagenta'}) -- not OK
 -- vim.api.nvim_set_hl(0, "Visual", {bg='darkgrey'})  -- darkgrey is not OK
