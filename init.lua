@@ -20,6 +20,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
 
+  -- {
+  --   -- 'Exafunction/codeium.vim',
+  --   event = 'BufEnter'
+  -- },
+
   -- For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- import everything in the lua/config folder
   { import = 'config' },
@@ -38,9 +43,8 @@ require 'auto-commands'
 
 
 
-vim.keymap.set('n', '<Leader>df', function()
-  local widgets = require('dap.ui.widgets')
-  widgets.centered_float(widgets.frames)
-end)
+-- vim.keymap.set('n', '<Leader>df', function()
+--   local widgets = require('dap.ui.widgets')
+--   widgets.centered_float(widgets.frames)
+-- end)
 -- vim.keymap.set('n', '<leader>ds', require('nvim-dap-ui').eval, { desc = '[d]ebug [s]start' })
-
